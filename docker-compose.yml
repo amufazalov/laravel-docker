@@ -1,0 +1,99 @@
+version: "3"
+
+services:
+
+  nginx:
+    image: kunrag/laravel-nginx
+    env_file: .env
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - fpm
+    depends_on:
+      - fpm
+    volumes: &appvolumes
+      - ./src:/var/www/laravel/src
+      - ~/.composer:/var/www/laravel/.composer
+      - ~/.npm:/var/www/laravel/.npm
+      - laravel-sockdata:/sock
+    networks:
+      - laravel-backend
+    logging:
+      options:
+        max-size: "2m"
+        max-file: "3"
+
+  fpm:
+    image: kunrag/laravel-php-7.3-fpm
+    env_file: .env
+    links:
+      - db
+    depends_on:
+      - app
+    volumes: *appvolumes
+    networks:
+      - laravel-backend
+    logging:
+      options:
+        max-size: "2m"
+        max-file: "3"
+
+  app:
+    image: kunrag/laravel-php-7.3-cli
+    env_file: .env
+    tty: true
+    links:
+      - db
+    depends_on:
+      - db
+    volumes: *appvolumes
+    networks:
+      - laravel-backend
+    logging:
+      options:
+        max-size: "2m"
+        max-file: "3"
+
+  db:
+    image: mysql:5
+    env_file: .env
+    ports:
+      - 3306:3306
+    volumes:
+      - laravel-dbdata:/var/lib/mysql
+    networks:
+      - laravel-backend
+    logging:
+      options:
+        max-size: "2m"
+        max-file: "3"
+
+  redis:
+    image: redis
+    expose:
+      - 6379
+    networks:
+      - laravel-backend
+    sysctls:
+      - net.core.somaxconn=511
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - laravel-backend
+    logging:
+      options:
+        max-size: "2m"
+        max-file: "3"
+
+networks:
+  laravel-backend:
+    driver: bridge
+
+volumes:
+  laravel-dbdata:
+  laravel-sockdata:

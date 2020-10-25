@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./bin/cli bash -c "cd ./src && npm $*"
