@@ -36,6 +36,10 @@ RUN apt-get update \
   && pecl install -o -f xdebug \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+
+# Install Node
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install nodejs -y
+
 # Create privilege user
 RUN addgroup --gid 1000 docker && \
     adduser --uid 1000 --ingroup docker --home /var/www/laravel --shell /bin/bash --disabled-password --gecos "" docker
