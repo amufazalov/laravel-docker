@@ -8,6 +8,7 @@ RUN apt-get update \
     libjpeg62-turbo-dev \
     libmcrypt-dev \
     libpng-dev \
+    libgmp-dev \
     libzip-dev \
     libxslt1-dev \
     sendmail-bin \
