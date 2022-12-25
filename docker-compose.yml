@@ -56,7 +56,7 @@ services:
         max-file: "3"
 
   db:
-    image: mysql:5
+    image: mariadb:10.4.13
     env_file: .env
     ports:
       - 3306:3306

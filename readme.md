@@ -1,6 +1,6 @@
 # Laravel Docker
 
-## Laravel + Nginx + PHP 7.3 + Mysql 5.7 + Redis + XDebug
+## Laravel + Nginx + PHP 8.1 + MariaDB + Redis + Swagger + XDebug
 
 ### Локальная разработка
 1. Создать папку `mkdir src` и склонировать существующий проект в папку.

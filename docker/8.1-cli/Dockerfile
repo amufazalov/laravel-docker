@@ -40,7 +40,7 @@ RUN apt-get update \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install Node
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install nodejs -y
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && apt-get install nodejs -y
 
 # Create privilege user
 RUN addgroup --gid 1000 docker && \
