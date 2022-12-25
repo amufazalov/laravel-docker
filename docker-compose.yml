@@ -25,7 +25,7 @@ services:
         max-file: "3"
 
   fpm:
-    image: kunrag/laravel-php-7.3-fpm
+    image: kunrag/laravel-php-8.1-fpm
     env_file: .env
     links:
       - db
@@ -40,7 +40,7 @@ services:
         max-file: "3"
 
   app:
-    image: kunrag/laravel-php-7.3-cli
+    image: kunrag/laravel-php-8.1-cli
     env_file: .env
     tty: true
     links:
@@ -83,6 +83,22 @@ services:
     ports:
       - 1025:1025
       - 8025:8025
+    networks:
+      - laravel-backend
+    logging:
+      options:
+        max-size: "2m"
+        max-file: "3"
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    volumes:
+      - ./src/swagger:/swagger
+      - ./src/swagger/spec:/usr/share/nginx/html/spec
+    environment:
+      - SWAGGER_JSON=/swagger/swagger.yaml
+    ports:
+      - 9090:8080
     networks:
       - laravel-backend
     logging:

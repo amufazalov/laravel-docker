@@ -1,5 +1,5 @@
-IMAGE_CLI := kunrag/laravel-php-7.3-cli
-IMAGE_FPM := kunrag/laravel-php-7.3-fpm
+IMAGE_CLI := kunrag/laravel-php-8.1-cli
+IMAGE_FPM := kunrag/laravel-php-8.1-fpm
 IMAGE_NGINX := kunrag/laravel-nginx
 IMAGE_REDIS := kunrag/laravel-redis
 
@@ -18,12 +18,12 @@ push:
 # Make php cli image
 .PHONY: cli
 cli:
-	@docker build -t $(IMAGE_CLI) 7.3-cli
+	@docker build -t $(IMAGE_CLI) 8.1-cli
 
 # Make php fpm image
 .PHONY: fpm
 fpm:
-	@docker build -t $(IMAGE_FPM) 7.3-fpm
+	@docker build -t $(IMAGE_FPM) 8.1-fpm
 
 # Make nginx image
 .PHONY: nginx
